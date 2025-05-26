@@ -1,0 +1,11 @@
+{
+    "editor.fontSize": 20,
+    "terminal.integrated.fontSize": 18,
+    "window.zoomLevel": -1,
+    "editor.tabSize": 4,
+    "workbench.iconTheme": "eq-material-theme-icons-palenight",
+    "workbench.colorTheme": "Noctis Minimus",
+    "editor.minimap.enabled": false,
+    "liveServer.settings.multiRootWorkspaceName": "BelajarGolang",
+    
+}
