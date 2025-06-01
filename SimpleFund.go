@@ -285,7 +285,9 @@ func userMenu() {
 
                 var indexDitemukan int
                 indexDitemukan = linearSearchIDProyek(daftarProyek, jumlahProyek, dicariID)
-                fmt.Println("\n======================= Menu User SimpleFund =======================")
+                if indexDitemukan != -1 {
+                    fmt.Println("\n======================= Menu User SimpleFund =======================")
+                }
                 tampilkanProyekDicari(daftarProyek, indexDitemukan)
                 lastSearch = true
                 ProyekDicari = true
@@ -305,7 +307,9 @@ func userMenu() {
 
                 var indexDitemukan int
                 indexDitemukan = linearSearchNamaProyek(daftarProyek, jumlahProyek, dicariNama)
-                fmt.Println("\n======================= Menu User SimpleFund =======================")
+                if indexDitemukan != -1 {
+                    fmt.Println("\n======================= Menu User SimpleFund =======================")
+                }
                 tampilkanProyekDicari(daftarProyek, indexDitemukan)
                 lastSearch = true
                 ProyekDicari = true
