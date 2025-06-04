@@ -840,26 +840,6 @@ func selectionSortIDDonaturASC(data *[NMAX]Donatur, jumlah int) {
     }
 }
 
-func cariProyekByID(id int, data [NMAX]Proyek, jumlah int) int {
-    var i int
-    for i = 0; i < jumlah; i++ {
-        if data[i].id == id {
-            return i
-        }
-    }
-    return -1
-}
-
-func cariDonaturByID(id int, data [NMAX]Donatur, jumlah int) int {
-    var i int
-    for i = 0; i < jumlah; i++ {
-        if data[i].id == id {
-            return i
-        }
-    }
-    return -1
-}
-
 // tampilkan proyek dicari
 func tampilkanProyekDicari(data [NMAX]Proyek, indexDitemukan int) {
     if indexDitemukan != -1 {
@@ -1223,8 +1203,9 @@ func donasi(proyek *[NMAX]Proyek, jumlahProyek int, donatur *[NMAX]Donatur, juml
 
     var indeksProyek int
     var indeksDonatur int
-    indeksProyek = cariProyekByID(idProyek, *proyek, jumlahProyek)
-    indeksDonatur = cariDonaturByID(idDonatur, *donatur, jumlahDonatur)
+    indeksProyek = linearSearchIDProyek(*proyek, jumlahProyek, idProyek)
+    selectionSortIDDonaturASC(donatur, jumlahDonatur)
+    indeksDonatur = binarySearchIDDonatur(*donatur, jumlahDonatur, idDonatur)
 
     if indeksProyek == -1 || indeksDonatur == -1 {
         systemMessage = "⛔ ID Proyek atau Donatur tidak ditemukan\n"
@@ -1258,7 +1239,7 @@ func donasiUser(proyek *[NMAX]Proyek, jumlahProyek int, donatur *[NMAX]Donatur, 
     }
 
     var indeksProyek int
-    indeksProyek = cariProyekByID(idProyek, *proyek, jumlahProyek)
+    indeksProyek = linearSearchIDProyek(*proyek, jumlahProyek, idProyek)
     if indeksProyek == -1 {
         systemMessage = "⛔ ID proyek tidak ditemukan\n"
         return
@@ -1313,7 +1294,7 @@ func editProyek(data *[NMAX]Proyek, jumlah int) {
     fmt.Print("Masukkan ID proyek yang ingin diedit: ")
     fmt.Scan(&id)
     var indeks int
-    indeks = cariProyekByID(id, *data, jumlah)
+    indeks = linearSearchIDProyek(*data, jumlah, id)
 
     if indeks == -1 {
         systemMessage = "⛔ Proyek dengan ID tersebut tidak ditemukan\n"
@@ -1350,8 +1331,9 @@ func editDonatur(data *[NMAX]Donatur, jumlah int) {
     fmt.Println("\n============ Edit Donatur 📑 ==============")
     fmt.Print("Masukkan ID donatur yang ingin diedit: ")
     fmt.Scan(&id)
+    selectionSortIDDonaturASC(data, jumlah)
     var indeks int
-    indeks = cariDonaturByID(id, *data, jumlah)
+    indeks = binarySearchIDDonatur(*data, jumlah, id)
 
     if indeks == -1 {
         systemMessage = "⛔ Donatur dengan ID tersebut tidak ditemukan\n"
@@ -1393,7 +1375,7 @@ func hapusProyek(data *[NMAX]Proyek, jumlah *int) {
     fmt.Print("Masukkan ID proyek yang ingin dihapus: ")
     fmt.Scan(&id)
     var indeks int
-    indeks = cariProyekByID(id, *data, *jumlah)
+    indeks = linearSearchIDProyek(*data, *jumlah, id)
 
     if indeks == -1 {
         systemMessage = "⛔ Proyek dengan ID tersebut tidak ditemukan\n"
@@ -1413,8 +1395,9 @@ func hapusDonatur(data *[NMAX]Donatur, jumlah *int) {
     fmt.Println("\n============ Hapus Donatur 📑 ==============")
     fmt.Print("Masukkan ID donatur yang ingin dihapus: ")
     fmt.Scan(&id)
+    selectionSortIDDonaturASC(data, *jumlah)
     var indeks int
-    indeks = cariDonaturByID(id, *data, *jumlah)
+    indeks = binarySearchIDDonatur(*data, *jumlah, id)
 
     if indeks == -1 {
         systemMessage = "⛔ Donatur dengan ID tersebut tidak ditemukan\n"
